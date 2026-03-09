@@ -1,0 +1,96 @@
+{% comment %}
+  Renders an announcement/promotional banner below the header.
+  Typically used on the landing page for promotions, shipping info, or announcements.
+{% endcomment %}
+
+{%- if section.settings.text != blank -%}
+  <div class="header-banner full-width" style="--banner-bg: {{ section.settings.background_color }}; --banner-bg-accent: {{ section.settings.background_accent | default: section.settings.background_color }}; --banner-fg: {{ section.settings.text_color }};">
+    <div class="header-banner__content">
+      {%- if section.settings.link != blank -%}
+        <a href="{{ section.settings.link }}" class="header-banner__link">
+          {{ section.settings.text }}
+        </a>
+      {%- else -%}
+        <span class="header-banner__text">{{ section.settings.text }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .header-banner {
+    background: linear-gradient(135deg, var(--banner-bg) 0%, var(--banner-bg-accent) 100%);
+    color: var(--banner-fg);
+    padding: 0.875rem var(--page-margin);
+    position: relative;
+    overflow: hidden;
+  }
+  .header-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%);
+    pointer-events: none;
+  }
+  .header-banner__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .header-banner__text,
+  .header-banner__link {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .header-banner__link {
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.2s;
+  }
+  .header-banner__link:hover {
+    opacity: 0.9;
+    text-decoration: underline;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:landing.header_banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "t:labels.text",
+      "default": "Free shipping on orders over $50"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:labels.link"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:labels.background",
+      "default": "#0d9488"
+    },
+    {
+      "type": "color",
+      "id": "background_accent",
+      "label": "t:landing.background_accent",
+      "default": "#0f766e"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:landing.text_color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [{ "name": "t:landing.header_banner" }]
+}
+{% endschema %}

@@ -1,0 +1,121 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "header_banner": {
+      "type": "header-banner",
+      "settings": {
+        "text": "Free shipping on orders over $50",
+        "background_color": "#0d9488",
+        "background_accent": "#0f766e",
+        "text_color": "#ffffff"
+      }
+    },
+    "hero_banner": {
+      "type": "hero-banner",
+      "settings": {
+        "title": "Welcome to our store",
+        "subtitle": "Discover quality products at great prices",
+        "button_label": "Shop collection",
+        "height": 550,
+        "overlay_opacity": 50,
+        "text_alignment": "center"
+      }
+    },
+    "featured_products": {
+      "type": "featured-products",
+      "settings": {
+        "background_color": "#fef7ed",
+        "card_radius": 12,
+        "title": "Featured products",
+        "products_to_show": 12,
+        "columns": 4,
+        "grid_gap": 24,
+        "show_view_all": true
+      }
+    },
+    "best_sellers": {
+      "type": "featured-products",
+      "settings": {
+        "background_color": "#ffffff",
+        "card_radius": 12,
+        "title": "Best sellers",
+        "products_to_show": 8,
+        "columns": 4,
+        "grid_gap": 24,
+        "show_view_all": true
+      }
+    },
+    "promo_banner": {
+      "type": "promo-banner",
+      "settings": {
+        "title": "New collection",
+        "subtitle": "Discover our latest arrivals",
+        "button_label": "Shop now",
+        "banner_height": 450,
+        "overlay_opacity": 40
+      }
+    },
+    "reviews_slider": {
+      "type": "reviews_slider",
+      "settings": {
+        "title": "What our customers say",
+        "background_color": "#f0fdfa"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "text": "<p>Excellent quality and fast shipping!</p>",
+            "author": "Sarah M.",
+            "rating": 5
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "text": "<p>Love this product. Will definitely order again.</p>",
+            "author": "John K.",
+            "rating": 5
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "text": "<p>Great customer service and amazing products.</p>",
+            "author": "Emily R.",
+            "rating": 5
+          }
+        }
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "title": "Subscribe to our newsletter",
+        "subtitle": "Get updates on new products and exclusive offers.",
+        "placeholder": "Enter your email",
+        "button_label": "Subscribe",
+        "background_color": "#0f766e",
+        "accent_color": "#134e4a",
+        "text_color": "#ffffff"
+      }
+    }
+  },
+  "order": [
+    "header_banner",
+    "hero_banner",
+    "featured_products",
+    "best_sellers",
+    "promo_banner",
+    "reviews_slider",
+    "newsletter"
+  ]
+}

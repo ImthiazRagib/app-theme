@@ -1,0 +1,170 @@
+{% comment %}
+  Renders a hero banner - the main above-the-fold section with headline, subheadline and CTA.
+{% endcomment %}
+
+<div
+  class="hero-banner full-width"
+  style="--hero-height: {{ section.settings.height }}px; --hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }}"
+>
+  <div class="hero-banner__media">
+    {%- if section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 2000
+        | image_tag: loading: 'eager', fetchpriority: 'high', class: 'hero-banner__image', alt: section.settings.title
+      }}
+    {%- else -%}
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'hero-banner__placeholder' }}
+    {%- endif -%}
+    <div class="hero-banner__overlay"></div>
+  </div>
+
+  <div class="hero-banner__content" style="--hero-align: {{ section.settings.text_alignment }}">
+    {%- if section.settings.title != blank -%}
+      <h1 class="hero-banner__title">{{ section.settings.title | escape }}</h1>
+    {%- endif -%}
+    {%- if section.settings.subtitle != blank -%}
+      <p class="hero-banner__subtitle">{{ section.settings.subtitle | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank -%}
+      <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="hero-banner__button">
+        {{ section.settings.button_label | escape }}
+      </a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .hero-banner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--hero-height);
+  }
+  .hero-banner__media {
+    position: absolute;
+    inset: 0;
+  }
+  .hero-banner__image,
+  .hero-banner__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-banner__placeholder {
+    background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+  }
+  .hero-banner__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(15, 118, 110, 0.6) 100%);
+    opacity: var(--hero-overlay);
+  }
+  .hero-banner__content {
+    position: relative;
+    z-index: 1;
+    text-align: var(--hero-align);
+    padding: 4rem var(--page-margin);
+    max-width: 48rem;
+  }
+  .hero-banner__title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.4);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .hero-banner__subtitle {
+    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 2rem;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.3);
+    line-height: 1.5;
+  }
+  .hero-banner__button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: #fff;
+    color: #0f766e;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+  }
+  .hero-banner__button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 32px rgba(0, 0, 0, 0.35);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:landing.hero_banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:labels.background"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:labels.title",
+      "default": "Welcome to our store"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "t:landing.subtitle",
+      "default": "Discover quality products at great prices"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:landing.button_label",
+      "default": "Shop collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:labels.link"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "t:labels.alignment",
+      "options": [
+        { "value": "left", "label": "t:options.alignment.left" },
+        { "value": "center", "label": "t:options.alignment.center" },
+        { "value": "right", "label": "t:options.alignment.right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "label": "t:landing.hero_height",
+      "min": 400,
+      "max": 700,
+      "step": 50,
+      "unit": "px",
+      "default": 550
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "t:landing.overlay_opacity",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    }
+  ],
+  "presets": [{ "name": "t:landing.hero_banner" }]
+}
+{% endschema %}

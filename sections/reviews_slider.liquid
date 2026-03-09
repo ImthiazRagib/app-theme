@@ -1,0 +1,222 @@
+{% comment %}
+  Renders a slider of customer reviews.
+  Uses blocks for individual review content that merchants can customize.
+{% endcomment %}
+
+{%- if section.blocks.size > 0 -%}
+  <div class="reviews-slider full-width" style="--reviews-bg: {{ section.settings.background_color }};">
+    <div class="reviews-slider__inner">
+      {%- if section.settings.title != blank -%}
+        <h2 class="reviews-slider__title">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+
+      <div class="reviews-slider__track" data-reviews-slider>
+        <div class="reviews-slider__slides">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'review' -%}
+                <div class="reviews-slider__slide" {{ block.shopify_attributes }}>
+                  <div class="reviews-slider__card">
+                    {%- if block.settings.rating > 0 -%}
+                      <div class="reviews-slider__stars" aria-hidden="true">
+                        {%- for i in (1..5) -%}
+                          <span class="reviews-slider__star {% if i <= block.settings.rating %}reviews-slider__star--filled{% endif %}">★</span>
+                        {%- endfor -%}
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.text != blank -%}
+                      <blockquote class="reviews-slider__quote">{{ block.settings.text }}</blockquote>
+                    {%- endif -%}
+                    {%- if block.settings.author != blank -%}
+                      <cite class="reviews-slider__author">{{ block.settings.author }}</cite>
+                    {%- endif -%}
+                  </div>
+                </div>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="reviews-slider__nav" data-reviews-nav>
+        <button type="button" class="reviews-slider__prev" aria-label="{{ 'landing.previous' | t }}">‹</button>
+        <button type="button" class="reviews-slider__next" aria-label="{{ 'landing.next' | t }}">›</button>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% javascript %}
+  (function () {
+    document.querySelectorAll('[data-reviews-slider]').forEach(function (track) {
+      const slides = track.querySelector('.reviews-slider__slides');
+      const inner = track.closest('.reviews-slider__inner');
+      const prevBtn = inner?.querySelector('.reviews-slider__prev');
+      const nextBtn = inner?.querySelector('.reviews-slider__next');
+      if (!slides) return;
+
+      let index = 0;
+      const slideCount = slides.children.length;
+      const visibleSlides = window.innerWidth < 768 ? 1 : 3;
+
+      function updateSlider() {
+        index = Math.max(0, Math.min(index, Math.max(0, slideCount - visibleSlides)));
+        const offset = -index * (100 / visibleSlides);
+        slides.style.transform = 'translateX(' + offset + '%)';
+      }
+
+      if (prevBtn) prevBtn.addEventListener('click', function () { index--; updateSlider(); });
+      if (nextBtn) nextBtn.addEventListener('click', function () { index++; updateSlider(); });
+    });
+  })();
+{% endjavascript %}
+
+{% stylesheet %}
+  .reviews-slider {
+    padding: 5rem var(--page-margin);
+    background: var(--reviews-bg);
+  }
+  .reviews-slider__inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+  .reviews-slider__title {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .reviews-slider__track {
+    overflow: hidden;
+  }
+  .reviews-slider__slides {
+    display: flex;
+    gap: 1.5rem;
+    transition: transform 0.35s ease;
+  }
+  .reviews-slider__slide {
+    flex: 0 0 calc(33.333% - 1rem);
+  }
+  @media (max-width: 768px) {
+    .reviews-slider__slide {
+      flex: 0 0 100%;
+    }
+  }
+  .reviews-slider__card {
+    background: #fff;
+    padding: 2rem 2.25rem;
+    height: 100%;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .reviews-slider__card:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+  .reviews-slider__stars {
+    color: #e5e7eb;
+    font-size: 1.375rem;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.1em;
+  }
+  .reviews-slider__star--filled {
+    color: #f59e0b;
+  }
+  .reviews-slider__quote {
+    font-style: italic;
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+    font-size: 1.0625rem;
+  }
+  .reviews-slider__quote p {
+    margin: 0;
+  }
+  .reviews-slider__author {
+    font-style: normal;
+    font-weight: 700;
+    color: #0d9488;
+  }
+  .reviews-slider__nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+  }
+  .reviews-slider__prev,
+  .reviews-slider__next {
+    width: 3.25rem;
+    height: 3.25rem;
+    border: 2px solid currentColor;
+    background: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+  }
+  .reviews-slider__prev:hover,
+  .reviews-slider__next:hover {
+    background: var(--color-foreground);
+    color: var(--color-background);
+    transform: scale(1.08);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:landing.reviews_slider",
+  "blocks": [
+    {
+      "type": "review",
+      "name": "t:landing.review",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:labels.text",
+          "default": "<p>Great product! Exactly what I was looking for.</p>"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "t:landing.author",
+          "default": "Jane D."
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "t:landing.rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:labels.title",
+      "default": "What our customers say"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:labels.background",
+      "default": "#f0fdfa"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:landing.reviews_slider",
+      "blocks": [
+        { "type": "review", "settings": { "text": "<p>Excellent quality and fast shipping!</p>", "author": "Sarah M.", "rating": 5 } },
+        { "type": "review", "settings": { "text": "<p>Love this product. Will definitely order again.</p>", "author": "John K.", "rating": 5 } },
+        { "type": "review", "settings": { "text": "<p>Great customer service and amazing products.</p>", "author": "Emily R.", "rating": 5 } }
+      ]
+    }
+  ]
+}
+{% endschema %}

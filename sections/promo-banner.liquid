@@ -1,0 +1,159 @@
+{% comment %}
+  Renders a full-width promotional banner with image, overlay text and CTA button.
+{% endcomment %}
+
+<div
+  class="promo-banner full-width"
+  style="--banner-height: {{ section.settings.banner_height }}px; --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }}"
+>
+  <div class="promo-banner__media">
+    {%- if section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 1600
+        | image_tag: loading: 'lazy', class: 'promo-banner__image'
+      }}
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'promo-banner__placeholder' }}
+    {%- endif -%}
+    <div class="promo-banner__overlay"></div>
+  </div>
+
+  <div class="promo-banner__content">
+    {%- if section.settings.title != blank -%}
+      <h2 class="promo-banner__title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subtitle != blank -%}
+      <p class="promo-banner__subtitle">{{ section.settings.subtitle | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+      <a href="{{ section.settings.button_link }}" class="promo-banner__button">
+        {{ section.settings.button_label | escape }}
+      </a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .promo-banner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--banner-height);
+  }
+  .promo-banner__media {
+    position: absolute;
+    inset: 0;
+  }
+  .promo-banner__image,
+  .promo-banner__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .promo-banner__placeholder {
+    background: #e0e0e0;
+  }
+  .promo-banner__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(15, 118, 110, 0.7) 100%);
+    opacity: var(--overlay-opacity);
+  }
+  .promo-banner__content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 4rem var(--page-margin);
+    color: #fff;
+  }
+  .promo-banner__title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    letter-spacing: -0.02em;
+  }
+  .promo-banner__subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 1.75rem;
+    max-width: 42ch;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.95;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+  }
+  .promo-banner__button {
+    display: inline-block;
+    padding: 1rem 2.25rem;
+    background: #fff;
+    color: #0f766e;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  .promo-banner__button:hover {
+    transform: scale(1.06);
+    box-shadow: 0 6px 28px rgba(0, 0, 0, 0.3);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:landing.promo_banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:labels.background"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:labels.title",
+      "default": "New collection"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "t:landing.subtitle",
+      "default": "Discover our latest arrivals"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:landing.button_label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:labels.link"
+    },
+    {
+      "type": "range",
+      "id": "banner_height",
+      "label": "t:landing.banner_height",
+      "min": 300,
+      "max": 600,
+      "step": 50,
+      "unit": "px",
+      "default": 450
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "t:landing.overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    }
+  ],
+  "presets": [{ "name": "t:landing.promo_banner" }]
+}
+{% endschema %}

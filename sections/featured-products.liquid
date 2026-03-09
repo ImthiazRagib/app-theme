@@ -1,0 +1,252 @@
+{% comment %}
+  Renders a grid of featured products from a selected collection.
+{% endcomment %}
+
+{%- if section.settings.collection != blank -%}
+  {%- assign collection = section.settings.collection -%}
+{%- else -%}
+  {%- assign collection = collections.frontpage -%}
+{%- endif -%}
+{%- assign products = collection.products -%}
+{%- assign product_limit = section.settings.products_to_show -%}
+
+<div
+  class="featured-products full-width"
+  style="--products-gap: {{ section.settings.grid_gap }}px; --products-per-row: {{ section.settings.columns }}; --section-bg: {{ section.settings.background_color }}; --card-radius: {{ section.settings.card_radius }}px"
+>
+  <div class="featured-products__inner">
+    {%- if section.settings.title != blank -%}
+      <h2 class="featured-products__title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+
+    <div class="featured-products__grid">
+      {%- for product in products limit: product_limit -%}
+        <a href="{{ product.url }}" class="featured-products__card">
+          {%- if product.featured_image -%}
+            <div class="featured-products__card-image">
+              {{
+                product.featured_image
+                | image_url: width: 600, height: 600, crop: 'center'
+                | image_tag: loading: 'lazy', alt: product.title
+              }}
+              {%- if product.compare_at_price > product.price -%}
+                <span class="featured-products__badge">{{ 'products.on_sale' | t }}</span>
+              {%- endif -%}
+            </div>
+          {%- else -%}
+            <div class="featured-products__card-placeholder">
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {%- endif -%}
+          <div class="featured-products__card-content">
+            <h3 class="featured-products__card-title">{{ product.title }}</h3>
+            <p class="featured-products__card-price">
+              {%- if product.compare_at_price > product.price -%}
+                <span class="featured-products__card-price--sale">{{ product.price | money }}</span>
+                <span class="featured-products__card-price--compare">{{ product.compare_at_price | money }}</span>
+              {%- else -%}
+                {{ product.price | money }}
+              {%- endif -%}
+            </p>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.show_view_all and collection != blank -%}
+      <div class="featured-products__footer">
+        <a href="{{ collection.url }}" class="featured-products__view-all">{{ 'landing.view_all_products' | t }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .featured-products {
+    padding: 5rem var(--page-margin);
+    background: var(--section-bg);
+  }
+  .featured-products__inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+  .featured-products__title {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .featured-products__grid {
+    display: grid;
+    grid-template-columns: repeat(var(--products-per-row), 1fr);
+    gap: var(--products-gap);
+  }
+  @media (max-width: 768px) {
+    .featured-products__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .featured-products__card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    background: #fff;
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .featured-products__card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  }
+  .featured-products__card:hover .featured-products__card-title {
+    color: #0d9488;
+  }
+  .featured-products__card-image {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+  }
+  .featured-products__card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .featured-products__card:hover .featured-products__card-image img {
+    transform: scale(1.05);
+  }
+  .featured-products__card-placeholder {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .featured-products__card-placeholder svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.5;
+  }
+  .featured-products__badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    color: #fff;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    padding: 0.35rem 0.6rem;
+    border-radius: 4px;
+    letter-spacing: 0.03em;
+  }
+  .featured-products__card-content {
+    padding: 1.25rem 1rem;
+  }
+  .featured-products__card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    transition: color 0.2s;
+  }
+  .featured-products__card-price {
+    font-weight: 500;
+  }
+  .featured-products__card-price--compare {
+    text-decoration: line-through;
+    opacity: 0.65;
+    margin-left: 0.5rem;
+    font-weight: 400;
+  }
+  .featured-products__footer {
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+  .featured-products__view-all {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    background: var(--color-foreground);
+    color: var(--color-background);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .featured-products__view-all:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:landing.featured_products",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:labels.background",
+      "default": "#fef7ed"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "t:landing.card_radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:labels.title",
+      "default": "Featured products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:landing.collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "t:landing.products_to_show",
+      "min": 2,
+      "max": 20,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:landing.columns",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "t:labels.grid_gap",
+      "min": 0,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "t:landing.show_view_all",
+      "default": true
+    }
+  ],
+  "presets": [{ "name": "t:landing.featured_products" }]
+}
+{% endschema %}
