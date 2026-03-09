@@ -89,6 +89,8 @@
     "alignment": "Alignment",
     "background": "Background",
     "foreground": "Foreground",
+    "color_primary": "Primary color",
+    "color_secondary": "Secondary color",
     "grid_gap": "Grid spacing",
     "grid_item_width": "Grid item width",
     "input_corner_radius": "Input corner radius",

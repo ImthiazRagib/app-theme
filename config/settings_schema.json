@@ -58,6 +58,18 @@
     "settings": [
       {
         "type": "color",
+        "id": "color_primary",
+        "default": "#0d9488",
+        "label": "t:labels.color_primary"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "default": "#0f766e",
+        "label": "t:labels.color_secondary"
+      },
+      {
+        "type": "color",
         "id": "background_color",
         "default": "#FFFFFF",
         "label": "t:labels.background"

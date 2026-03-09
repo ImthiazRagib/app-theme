@@ -4,7 +4,7 @@
 {% endcomment %}
 
 {%- if section.settings.text != blank -%}
-  <div class="header-banner full-width" style="--banner-bg: {{ section.settings.background_color }}; --banner-bg-accent: {{ section.settings.background_accent | default: section.settings.background_color }}; --banner-fg: {{ section.settings.text_color }};">
+  <div class="header-banner full-width" style="--banner-bg: {{ section.settings.background_color }}; --banner-bg-accent: {{ section.settings.background_accent }}; --banner-fg: {{ section.settings.text_color }};">
     <div class="header-banner__content">
       {%- if section.settings.link != blank -%}
         <a href="{{ section.settings.link }}" class="header-banner__link">
