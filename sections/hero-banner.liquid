@@ -7,7 +7,9 @@
   style="--hero-height: {{ section.settings.height }}px; --hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }}; --hero-bg-color: {{ section.settings.background_color }}; --hero-bg-accent: {{ section.settings.background_accent }}; --hero-img-position: {{ section.settings.image_position | default: 'center center' }}"
 >
   <div class="hero-banner__media">
-    {%- if section.settings.image != blank -%}
+    {%- if section.settings.image_url != blank -%}
+      <div class="hero-banner__image hero-banner__image--url" style="background-image: url('{{ section.settings.image_url | escape }}');"></div>
+    {%- elsif section.settings.image != blank -%}
       {{
         section.settings.image
         | image_url: width: 2400
@@ -55,6 +57,10 @@
     height: 100%;
     object-fit: cover;
     object-position: var(--hero-img-position);
+  }
+  .hero-banner__image--url {
+    background-size: cover;
+    background-position: var(--hero-img-position);
   }
   .hero-banner__gradient-bg {
     position: absolute;
@@ -131,9 +137,15 @@
   "name": "t:landing.hero_banner",
   "settings": [
     {
+      "type": "text",
+      "id": "image_url",
+      "label": "t:landing.background_image_url",
+      "info": "t:landing.background_image_url_info"
+    },
+    {
       "type": "image_picker",
       "id": "image",
-      "label": "t:labels.background"
+      "label": "t:landing.background_upload"
     },
     {
       "type": "select",

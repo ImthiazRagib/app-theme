@@ -7,6 +7,9 @@
     "subheading": "Subheading",
     "hero_height": "Hero height",
     "image_position": "Image position",
+    "background_image_url": "Background image URL",
+    "background_image_url_info": "Paste a direct image URL here (e.g. https://yoursite.com/image.jpg). This overrides the uploaded image above.",
+    "background_upload": "Or upload image",
     "fallback_bg": "Fallback background (no image)",
     "position": {
       "center": "Center",
