@@ -41,7 +41,8 @@
     "video_banner": "Video banner",
     "video_upload": "Video",
     "video_url": "Video URL (YouTube or Vimeo)",
-    "video_url_info": "Paste a YouTube or Vimeo URL. Used when no video is uploaded.",
+    "video_url_info": "Paste a YouTube or Vimeo URL to play the video. Autoplays muted.",
+    "video_settings": "Video",
     "video_fallback": "Fallback image (when no video)",
     "bullet_point": "Bullet point"
   },
@@ -91,6 +92,7 @@
     "foreground": "Foreground",
     "color_primary": "Primary color",
     "color_secondary": "Secondary color",
+    "heading_color": "Heading color",
     "grid_gap": "Grid spacing",
     "grid_item_width": "Grid item width",
     "input_corner_radius": "Input corner radius",
@@ -102,7 +104,8 @@
     "page_width": "Page width",
     "show_payment_icons": "Show payment icons",
     "text_style": "Text style",
-    "text": "Text"
+    "text": "Text",
+    "video_url_info": "Video URL help text"
   },
   "options": {
     "alignment": {

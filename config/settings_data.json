@@ -10,6 +10,8 @@
 {
   "current": {
     "color_primary": "#4F46E5",
-    "color_secondary": "#43C99C"
+    "color_secondary": "#43C99C",
+    "video_url": "https://www.youtube.com/watch?v=CZqaS7PcjdI",
+    "video_url_info": "Paste a YouTube or Vimeo URL to play the video. Autoplays muted."
   }
 }

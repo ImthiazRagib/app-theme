@@ -91,5 +91,22 @@
         "default": 4
       }
     ]
+  },
+  {
+    "name": "t:landing.video_settings",
+    "settings": [
+      {
+        "type": "text",
+        "id": "video_url",
+        "label": "t:landing.video_url",
+        "info": "t:landing.video_url_info"
+      },
+      {
+        "type": "textarea",
+        "id": "video_url_info",
+        "label": "t:labels.video_url_info",
+        "default": "Paste a YouTube or Vimeo URL to play the video. Autoplays muted."
+      }
+    ]
   }
 ]
