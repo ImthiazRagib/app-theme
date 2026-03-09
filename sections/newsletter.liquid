@@ -1,8 +1,14 @@
 {% comment %}
   Renders a newsletter signup section using Shopify's built-in customer form.
+  Includes a wave divider above for visual separation.
 {% endcomment %}
 
 <div class="newsletter full-width" style="--newsletter-bg: {{ section.settings.background_color }}; --newsletter-accent: {{ section.settings.accent_color }}; --newsletter-fg: {{ section.settings.text_color }};">
+  <div class="newsletter__wave" aria-hidden="true">
+    <svg class="newsletter__wave-svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+      <path class="newsletter__wave-path" d="M0 50 C 240 0 480 100 720 50 C 960 0 1200 100 1440 50 L 1440 100 L 0 100 Z"/>
+    </svg>
+  </div>
   <div class="newsletter__inner">
     {%- if section.settings.title != blank -%}
       <h2 class="newsletter__title">{{ section.settings.title | escape }}</h2>
@@ -45,7 +51,23 @@
     color: var(--newsletter-fg);
     padding: 5rem var(--page-margin);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+  }
+  .newsletter__wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    line-height: 0;
+    transform: translateY(-100%);
+  }
+  .newsletter__wave-svg {
+    width: 100%;
+    height: 72px;
+  }
+  .newsletter__wave-path {
+    fill: var(--newsletter-bg);
   }
   .newsletter::before {
     content: '';
