@@ -5,7 +5,7 @@
 
 <div
   class="video-banner full-width"
-  style="--video-banner-bg: var(--color-primary-tint); --video-banner-fg: var(--color-secondary);"
+  style="--video-banner-bg: var(--color-primary-tint); --video-banner-fg: var(--color-foreground); --video-banner-heading: var(--color-primary);"
 >
   <div class="video-banner__inner">
     <div class="video-banner__media">
@@ -137,18 +137,21 @@
     opacity: 0.4;
   }
   .video-banner__content {
-    padding: 2rem 0;
+    padding: 2rem 2.5rem;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 16px;
   }
   .video-banner__title {
     font-size: 2rem;
     font-weight: 800;
     margin-bottom: 0.75rem;
     letter-spacing: -0.02em;
+    color: var(--video-banner-heading);
   }
   .video-banner__subtitle {
     font-size: 1.0625rem;
     margin-bottom: 2rem;
-    opacity: 0.9;
+    color: var(--video-banner-fg);
     line-height: 1.5;
   }
   .video-banner__bullets {
@@ -162,6 +165,7 @@
     margin-bottom: 1rem;
     font-size: 1.0625rem;
     line-height: 1.5;
+    color: var(--video-banner-fg);
   }
   .video-banner__bullet::before {
     content: '';
@@ -176,8 +180,8 @@
   .video-banner__button {
     display: inline-block;
     padding: 0.875rem 2rem;
-    background: var(--video-banner-fg);
-    color: var(--video-banner-bg);
+    background: var(--color-primary);
+    color: #ffffff;
     text-decoration: none;
     font-weight: 700;
     border-radius: 8px;

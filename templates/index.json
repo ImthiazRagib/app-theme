@@ -30,8 +30,8 @@
     "video_banner": {
       "type": "video-banner",
       "settings": {
-        "title": "Why choose us",
-        "subtitle": "Discover what makes our product special.",
+        "title": "Your Best Choice",
+        "subtitle": "We offer the best quality products for your needs.",
         "button_label": "Learn more"
       },
       "blocks": {
