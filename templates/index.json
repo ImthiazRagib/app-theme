@@ -31,6 +31,42 @@
         "background_color": "#ffffff"
       }
     },
+    "video_banner": {
+      "type": "video-banner",
+      "settings": {
+        "title": "Why choose us",
+        "subtitle": "Discover what makes our product special.",
+        "button_label": "Learn more",
+        "background_color": "#f0fdfa",
+        "text_color": "#0f766e"
+      },
+      "blocks": {
+        "bullet_1": {
+          "type": "bullet",
+          "settings": {
+            "text": "Premium quality materials"
+          }
+        },
+        "bullet_2": {
+          "type": "bullet",
+          "settings": {
+            "text": "Designed for everyday use"
+          }
+        },
+        "bullet_3": {
+          "type": "bullet",
+          "settings": {
+            "text": "Eco-friendly packaging"
+          }
+        },
+        "bullet_4": {
+          "type": "bullet",
+          "settings": {
+            "text": "Backed by our satisfaction guarantee"
+          }
+        }
+      }
+    },
     "reviews_slider": {
       "type": "reviews_slider",
       "settings": {
@@ -90,6 +126,7 @@
     "hero_banner",
     "single_product",
     "reviews_slider",
+    "video_banner",
     "newsletter"
   ]
 }

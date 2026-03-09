@@ -37,7 +37,13 @@
     "rating": "Rating",
     "background_accent": "Background accent",
     "accent_color": "Accent color",
-    "card_radius": "Card corner radius"
+    "card_radius": "Card corner radius",
+    "video_banner": "Video banner",
+    "video_upload": "Video",
+    "video_url": "Video URL (YouTube or Vimeo)",
+    "video_url_info": "Paste a YouTube or Vimeo URL. Used when no video is uploaded.",
+    "video_fallback": "Fallback image (when no video)",
+    "bullet_point": "Bullet point"
   },
   "products": {
     "show_related": "Show related products",

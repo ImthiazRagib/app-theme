@@ -1,0 +1,272 @@
+{% comment %}
+  Renders a video banner with video on left, product bullet list on right.
+  Background is customizable.
+{% endcomment %}
+
+<div
+  class="video-banner full-width"
+  style="--video-banner-bg: {{ section.settings.background_color }}; --video-banner-fg: {{ section.settings.text_color }}"
+>
+  <div class="video-banner__inner">
+    <div class="video-banner__media">
+      {%- if section.settings.video != blank -%}
+        {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: 'video-banner__video' }}
+      {%- elsif section.settings.video_url != blank -%}
+        {%- assign video_id = '' -%}
+        {%- if section.settings.video_url contains 'vimeo' -%}
+          {%- assign vimeo_path = section.settings.video_url | split: 'vimeo.com/' | last | split: '?' | first -%}
+          {%- assign video_id = vimeo_path | split: '/' | last -%}
+        {%- elsif section.settings.video_url contains 'youtu.be' -%}
+          {%- assign video_id = section.settings.video_url | split: 'youtu.be/' | last | split: '?' | first -%}
+        {%- else -%}
+          {%- assign video_id = section.settings.video_url | split: 'v=' | last | split: '&' | first -%}
+        {%- endif -%}
+        {%- if section.settings.video_url contains 'vimeo' -%}
+          <iframe
+            class="video-banner__iframe"
+            src="https://player.vimeo.com/video/{{ video_id }}?autoplay=1&loop=1&muted=1&background=1"
+            frameborder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowfullscreen
+            title="{{ section.settings.title | escape }}"
+          ></iframe>
+        {%- else -%}
+          <iframe
+            class="video-banner__iframe"
+            src="https://www.youtube.com/embed/{{ video_id }}?autoplay=1&loop=1&muted=1&playlist={{ video_id }}"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+            title="{{ section.settings.title | escape }}"
+          ></iframe>
+        {%- endif -%}
+      {%- elsif section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'video-banner__image', alt: section.settings.title }}
+      {%- else -%}
+        <div class="video-banner__placeholder">
+          {{ 'lifestyle-1' | placeholder_svg_tag }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="video-banner__content">
+      {%- if section.settings.title != blank -%}
+        <h2 class="video-banner__title">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="video-banner__subtitle">{{ section.settings.subtitle | escape }}</p>
+      {%- endif -%}
+      <ul class="video-banner__bullets">
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'bullet' -%}
+                <li class="video-banner__bullet" {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+            {%- endcase -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- assign demo_bullets = "landing.video_bullet_1|landing.video_bullet_2|landing.video_bullet_3|landing.video_bullet_4" | split: "|" -%}
+          {%- for demo in demo_bullets -%}
+            <li class="video-banner__bullet">{{ demo | t }}</li>
+          {%- endfor -%}
+        {%- endif -%}
+      </ul>
+      {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+        <a href="{{ section.settings.button_link }}" class="video-banner__button">{{ section.settings.button_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .video-banner {
+    padding: 5rem var(--page-margin);
+    background: var(--video-banner-bg);
+    color: var(--video-banner-fg);
+  }
+  .video-banner__inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  @media (max-width: 968px) {
+    .video-banner__inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+  .video-banner__media {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 16/10;
+    background: rgba(0, 0, 0, 0.1);
+  }
+  .video-banner__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .video-banner__iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 56.25vw;
+    min-height: 100%;
+    min-width: 177.78vh;
+    transform: translate(-50%, -50%);
+  }
+  .video-banner__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .video-banner__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .video-banner__placeholder svg {
+    width: 60%;
+    opacity: 0.4;
+  }
+  .video-banner__content {
+    padding: 2rem 0;
+  }
+  .video-banner__title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+  .video-banner__subtitle {
+    font-size: 1.0625rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+  .video-banner__bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+  }
+  .video-banner__bullet {
+    position: relative;
+    padding-left: 1.75rem;
+    margin-bottom: 1rem;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+  }
+  .video-banner__bullet::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 8px;
+    height: 8px;
+    background: currentColor;
+    border-radius: 50%;
+  }
+  .video-banner__button {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    background: var(--video-banner-fg);
+    color: var(--video-banner-bg);
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 8px;
+    transition: opacity 0.2s;
+  }
+  .video-banner__button:hover {
+    opacity: 0.9;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:landing.video_banner",
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "t:landing.bullet_point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:labels.text",
+          "default": "Premium quality materials"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "video",
+      "id": "video",
+      "label": "t:landing.video_upload"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "t:landing.video_url",
+      "info": "t:landing.video_url_info"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:landing.video_fallback"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:labels.title",
+      "default": "Why choose us"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "t:landing.subtitle",
+      "default": "Discover what makes our product special."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:landing.button_label",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:labels.link"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:labels.background",
+      "default": "#f0fdfa"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:landing.text_color",
+      "default": "#0f766e"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:landing.video_banner",
+      "blocks": [
+        { "type": "bullet", "settings": { "text": "Premium quality materials" } },
+        { "type": "bullet", "settings": { "text": "Designed for everyday use" } },
+        { "type": "bullet", "settings": { "text": "Eco-friendly packaging" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
