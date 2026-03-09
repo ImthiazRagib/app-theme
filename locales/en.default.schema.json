@@ -2,7 +2,19 @@
   "landing": {
     "header_banner": "Header banner",
     "hero_banner": "Hero banner",
+    "single_product": "Single product",
+    "product": "Product",
+    "subheading": "Subheading",
     "hero_height": "Hero height",
+    "image_position": "Image position",
+    "fallback_bg": "Fallback background (no image)",
+    "position": {
+      "center": "Center",
+      "top": "Top",
+      "bottom": "Bottom",
+      "left": "Left",
+      "right": "Right"
+    },
     "featured_products": "Featured products",
     "promo_banner": "Promo banner",
     "reviews_slider": "Reviews slider",

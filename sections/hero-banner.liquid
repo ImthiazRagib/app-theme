@@ -4,17 +4,18 @@
 
 <div
   class="hero-banner full-width"
-  style="--hero-height: {{ section.settings.height }}px; --hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }}"
+  style="--hero-height: {{ section.settings.height }}px; --hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }}; --hero-bg-color: {{ section.settings.background_color }}; --hero-bg-accent: {{ section.settings.background_accent }}; --hero-img-position: {{ section.settings.image_position | default: 'center center' }}"
 >
   <div class="hero-banner__media">
     {%- if section.settings.image != blank -%}
       {{
         section.settings.image
-        | image_url: width: 2000
+        | image_url: width: 2400
         | image_tag: loading: 'eager', fetchpriority: 'high', class: 'hero-banner__image', alt: section.settings.title
       }}
     {%- else -%}
-      {{ 'lifestyle-2' | placeholder_svg_tag: 'hero-banner__placeholder' }}
+      <div class="hero-banner__gradient-bg"></div>
+      <div class="hero-banner__pattern" aria-hidden="true"></div>
     {%- endif -%}
     <div class="hero-banner__overlay"></div>
   </div>
@@ -45,20 +46,44 @@
   .hero-banner__media {
     position: absolute;
     inset: 0;
+    overflow: hidden;
   }
-  .hero-banner__image,
-  .hero-banner__placeholder {
+  .hero-banner__image {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: var(--hero-img-position);
   }
-  .hero-banner__placeholder {
-    background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+  .hero-banner__gradient-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--hero-bg-color) 0%, var(--hero-bg-accent) 50%, #134e4a 100%);
+  }
+  .hero-banner__pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.15;
+    background-image: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.2) 0%, transparent 50%),
+                      radial-gradient(circle at 75% 75%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  }
+  .hero-banner__pattern::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.03) 40px,
+      rgba(255,255,255,0.03) 80px
+    );
   }
   .hero-banner__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(15, 118, 110, 0.6) 100%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(15, 118, 110, 0.55) 100%);
     opacity: var(--hero-overlay);
   }
   .hero-banner__content {
@@ -109,6 +134,31 @@
       "type": "image_picker",
       "id": "image",
       "label": "t:labels.background"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "t:landing.image_position",
+      "options": [
+        { "value": "center center", "label": "t:landing.position.center" },
+        { "value": "top center", "label": "t:landing.position.top" },
+        { "value": "bottom center", "label": "t:landing.position.bottom" },
+        { "value": "center left", "label": "t:landing.position.left" },
+        { "value": "center right", "label": "t:landing.position.right" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:landing.fallback_bg",
+      "default": "#0d9488"
+    },
+    {
+      "type": "color",
+      "id": "background_accent",
+      "label": "t:landing.background_accent",
+      "default": "#0f766e"
     },
     {
       "type": "text",

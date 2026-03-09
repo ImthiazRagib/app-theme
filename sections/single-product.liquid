@@ -1,0 +1,209 @@
+{% comment %}
+  Renders the single product for a one-product store landing page.
+  Merchant selects the product in the theme editor.
+{% endcomment %}
+
+{%- assign featured_product = section.settings.product -%}
+{%- if featured_product == blank and collections.frontpage.products.size > 0 -%}
+  {%- assign featured_product = collections.frontpage.products.first -%}
+{%- endif -%}
+
+<div
+  class="single-product full-width"
+  style="--section-bg: {{ section.settings.background_color }}"
+>
+  <div class="single-product__inner">
+    {%- if featured_product != blank -%}
+      <div class="single-product__grid">
+        <div class="single-product__media">
+          {%- if featured_product.featured_image -%}
+            <a href="{{ featured_product.url }}" class="single-product__image-link">
+              {{
+                featured_product.featured_image
+                | image_url: width: 800
+                | image_tag: loading: 'lazy', alt: featured_product.title, class: 'single-product__image'
+              }}
+            </a>
+          {%- else -%}
+            <a href="{{ featured_product.url }}" class="single-product__placeholder">
+              {{ 'product-1' | placeholder_svg_tag }}
+            </a>
+          {%- endif -%}
+        </div>
+        <div class="single-product__info">
+          {%- if section.settings.subheading != blank -%}
+            <p class="single-product__subheading">{{ section.settings.subheading | escape }}</p>
+          {%- endif -%}
+          <h2 class="single-product__title">
+            <a href="{{ featured_product.url }}">{{ featured_product.title }}</a>
+          </h2>
+          <div class="single-product__price">
+            {%- if featured_product.compare_at_price > featured_product.price -%}
+              <span class="single-product__price--sale">{{ featured_product.price | money }}</span>
+              <span class="single-product__price--compare">{{ featured_product.compare_at_price | money }}</span>
+              <span class="single-product__badge">{{ 'products.on_sale' | t }}</span>
+            {%- else -%}
+              {{ featured_product.price | money }}
+            {%- endif -%}
+          </div>
+          {%- if featured_product.description != blank -%}
+            <div class="single-product__description">
+              {{ featured_product.description | strip_html | truncatewords: 50 }}
+            </div>
+          {%- endif -%}
+          <a href="{{ featured_product.url }}" class="single-product__button">
+            {{ section.settings.button_label | default: 'View details' | escape }}
+          </a>
+        </div>
+      </div>
+    {%- else -%}
+      <div class="single-product__empty">
+        <p>{{ 'landing.single_product_empty' | t }}</p>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .single-product {
+    padding: 5rem var(--page-margin);
+    background: var(--section-bg);
+  }
+  .single-product__inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+  .single-product__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .single-product__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .single-product__media {
+    position: relative;
+  }
+  .single-product__image-link,
+  .single-product__placeholder {
+    display: block;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+  .single-product__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .single-product__image-link:hover .single-product__image {
+    transform: scale(1.03);
+  }
+  .single-product__placeholder {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .single-product__placeholder svg {
+    width: 50%;
+    opacity: 0.5;
+  }
+  .single-product__subheading {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #0d9488;
+    margin-bottom: 0.5rem;
+  }
+  .single-product__title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+  .single-product__title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .single-product__title a:hover {
+    color: #0d9488;
+  }
+  .single-product__price {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  .single-product__price--compare {
+    text-decoration: line-through;
+    opacity: 0.7;
+    margin-left: 0.5rem;
+  }
+  .single-product__badge {
+    display: inline-block;
+    background: #dc2626;
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    margin-left: 0.5rem;
+  }
+  .single-product__description {
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.8);
+  }
+  .single-product__button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: #0d9488;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 8px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .single-product__button:hover {
+    background: #0f766e;
+    transform: translateY(-2px);
+  }
+  .single-product__empty {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:landing.single_product",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:landing.product"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:landing.subheading",
+      "default": "Our product"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:landing.button_label",
+      "default": "View details"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:labels.background",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [{ "name": "t:landing.single_product" }]
+}
+{% endschema %}

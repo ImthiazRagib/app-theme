@@ -1,5 +1,6 @@
 {
   "landing": {
+    "single_product_empty": "Select a product in the theme editor to display it here.",
     "view_all_products": "View all products",
     "newsletter_success": "Thanks for subscribing!",
     "previous": "Previous",

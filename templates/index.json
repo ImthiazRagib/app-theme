@@ -12,7 +12,7 @@
     "header_banner": {
       "type": "header-banner",
       "settings": {
-        "text": "Free shipping on orders over $50",
+        "text": "Free shipping on all orders",
         "background_color": "#0d9488",
         "background_accent": "#0f766e",
         "text_color": "#ffffff"
@@ -21,46 +21,23 @@
     "hero_banner": {
       "type": "hero-banner",
       "settings": {
-        "title": "Welcome to our store",
-        "subtitle": "Discover quality products at great prices",
-        "button_label": "Shop collection",
+        "title": "Our product",
+        "subtitle": "Quality you can trust",
+        "button_label": "Learn more",
+        "background_color": "#0d9488",
+        "background_accent": "#0f766e",
         "height": 550,
         "overlay_opacity": 50,
-        "text_alignment": "center"
+        "text_alignment": "center",
+        "image_position": "center center"
       }
     },
-    "featured_products": {
-      "type": "featured-products",
+    "single_product": {
+      "type": "single-product",
       "settings": {
-        "background_color": "#fef7ed",
-        "card_radius": 12,
-        "title": "Featured products",
-        "products_to_show": 12,
-        "columns": 4,
-        "grid_gap": 24,
-        "show_view_all": true
-      }
-    },
-    "best_sellers": {
-      "type": "featured-products",
-      "settings": {
-        "background_color": "#ffffff",
-        "card_radius": 12,
-        "title": "Best sellers",
-        "products_to_show": 8,
-        "columns": 4,
-        "grid_gap": 24,
-        "show_view_all": true
-      }
-    },
-    "promo_banner": {
-      "type": "promo-banner",
-      "settings": {
-        "title": "New collection",
-        "subtitle": "Discover our latest arrivals",
-        "button_label": "Shop now",
-        "banner_height": 450,
-        "overlay_opacity": 40
+        "subheading": "Our product",
+        "button_label": "View details",
+        "background_color": "#ffffff"
       }
     },
     "reviews_slider": {
@@ -81,7 +58,7 @@
         "review_2": {
           "type": "review",
           "settings": {
-            "text": "<p>Love this product. Will definitely order again.</p>",
+            "text": "<p>Exactly what I was looking for.</p>",
             "author": "John K.",
             "rating": 5
           }
@@ -89,7 +66,7 @@
         "review_3": {
           "type": "review",
           "settings": {
-            "text": "<p>Great customer service and amazing products.</p>",
+            "text": "<p>Great customer service.</p>",
             "author": "Emily R.",
             "rating": 5
           }
@@ -99,8 +76,8 @@
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "title": "Subscribe to our newsletter",
-        "subtitle": "Get updates on new products and exclusive offers.",
+        "title": "Subscribe for updates",
+        "subtitle": "Get notified about restocks and exclusive offers.",
         "placeholder": "Enter your email",
         "button_label": "Subscribe",
         "background_color": "#0f766e",
@@ -112,9 +89,7 @@
   "order": [
     "header_banner",
     "hero_banner",
-    "featured_products",
-    "best_sellers",
-    "promo_banner",
+    "single_product",
     "reviews_slider",
     "newsletter"
   ]
