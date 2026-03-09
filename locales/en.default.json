@@ -1,5 +1,11 @@
 {
   "landing": {
+    "demo_review_1": "Excellent quality and fast shipping!",
+    "demo_review_2": "Exactly what I was looking for.",
+    "demo_review_3": "Great customer service and amazing product.",
+    "demo_author_1": "Sarah M.",
+    "demo_author_2": "John K.",
+    "demo_author_3": "Emily R.",
     "single_product_empty": "Select a product in the theme editor to display it here.",
     "view_all_products": "View all products",
     "newsletter_success": "Thanks for subscribing!",

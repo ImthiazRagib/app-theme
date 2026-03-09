@@ -1,17 +1,17 @@
 {% comment %}
   Renders a slider of customer reviews.
-  Uses blocks for individual review content that merchants can customize.
+  Uses blocks for individual review content. Shows demo reviews when no blocks exist.
 {% endcomment %}
 
-{%- if section.blocks.size > 0 -%}
-  <div class="reviews-slider full-width" style="--reviews-bg: {{ section.settings.background_color }};">
-    <div class="reviews-slider__inner">
-      {%- if section.settings.title != blank -%}
-        <h2 class="reviews-slider__title">{{ section.settings.title | escape }}</h2>
-      {%- endif -%}
+<div class="reviews-slider full-width" style="--reviews-bg: {{ section.settings.background_color }};">
+  <div class="reviews-slider__inner">
+    {%- if section.settings.title != blank -%}
+      <h2 class="reviews-slider__title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
 
-      <div class="reviews-slider__track" data-reviews-slider>
-        <div class="reviews-slider__slides">
+    <div class="reviews-slider__track" data-reviews-slider>
+      <div class="reviews-slider__slides">
+        {%- if section.blocks.size > 0 -%}
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when 'review' -%}
@@ -34,16 +34,36 @@
                 </div>
             {%- endcase -%}
           {%- endfor -%}
-        </div>
-      </div>
-
-      <div class="reviews-slider__nav" data-reviews-nav>
-        <button type="button" class="reviews-slider__prev" aria-label="{{ 'landing.previous' | t }}">‹</button>
-        <button type="button" class="reviews-slider__next" aria-label="{{ 'landing.next' | t }}">›</button>
+        {%- else -%}
+          {%- assign demo_reviews = "landing.demo_review_1|landing.demo_review_2|landing.demo_review_3" | split: "|" -%}
+          {%- assign demo_authors = "landing.demo_author_1|landing.demo_author_2|landing.demo_author_3" | split: "|" -%}
+          {%- for demo in demo_reviews -%}
+            {%- assign demo_index = forloop.index0 -%}
+            {%- assign demo_author = demo_authors[demo_index] | t -%}
+            <div class="reviews-slider__slide">
+              <div class="reviews-slider__card">
+                <div class="reviews-slider__stars" aria-hidden="true">
+                  <span class="reviews-slider__star reviews-slider__star--filled">★</span>
+                  <span class="reviews-slider__star reviews-slider__star--filled">★</span>
+                  <span class="reviews-slider__star reviews-slider__star--filled">★</span>
+                  <span class="reviews-slider__star reviews-slider__star--filled">★</span>
+                  <span class="reviews-slider__star reviews-slider__star--filled">★</span>
+                </div>
+                <blockquote class="reviews-slider__quote"><p>{{ demo | t }}</p></blockquote>
+                <cite class="reviews-slider__author">{{ demo_author }}</cite>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
       </div>
     </div>
+
+    <div class="reviews-slider__nav" data-reviews-nav>
+      <button type="button" class="reviews-slider__prev" aria-label="{{ 'landing.previous' | t }}">‹</button>
+      <button type="button" class="reviews-slider__next" aria-label="{{ 'landing.next' | t }}">›</button>
+    </div>
   </div>
-{%- endif -%}
+</div>
 
 {% javascript %}
   (function () {

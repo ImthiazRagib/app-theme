@@ -61,6 +61,14 @@
             "author": "Emily R.",
             "rating": 5
           }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "text": "<p>Highly recommend this product!</p>",
+            "author": "Mike T.",
+            "rating": 5
+          }
         }
       }
     },
