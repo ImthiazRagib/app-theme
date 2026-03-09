@@ -16,8 +16,10 @@
     --color-primary: {{ settings.color_primary }};
     --color-primary-light: {{ settings.color_primary | color_lighten: 10 }};
     --color-primary-dark: {{ settings.color_primary | color_darken: 15 }};
+    --color-primary-tint: {{ settings.color_primary | color_lighten: 45 }};
     --color-secondary: {{ settings.color_secondary }};
     --color-secondary-dark: {{ settings.color_secondary | color_darken: 10 }};
+    --color-secondary-tint: {{ settings.color_secondary | color_lighten: 45 }};
     --style-border-radius-inputs: {{ settings.input_corner_radius }}px;
   }
 {% endstyle %}

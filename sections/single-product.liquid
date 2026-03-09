@@ -10,7 +10,7 @@
 
 <div
   class="single-product full-width"
-  style="--section-bg: {{ section.settings.background_color }}"
+  style="--section-bg: var(--color-background);"
 >
   <div class="single-product__inner">
     {%- if featured_product != blank -%}
@@ -196,12 +196,6 @@
       "id": "button_label",
       "label": "t:landing.button_label",
       "default": "View details"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "t:labels.background",
-      "default": "#ffffff"
     }
   ],
   "presets": [{ "name": "t:landing.single_product" }]

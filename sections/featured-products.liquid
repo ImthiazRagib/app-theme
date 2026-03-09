@@ -12,7 +12,7 @@
 
 <div
   class="featured-products full-width"
-  style="--products-gap: {{ section.settings.grid_gap }}px; --products-per-row: {{ section.settings.columns }}; --section-bg: {{ section.settings.background_color }}; --card-radius: {{ section.settings.card_radius }}px"
+  style="--products-gap: {{ section.settings.grid_gap }}px; --products-per-row: {{ section.settings.columns }}; --section-bg: var(--color-background); --card-radius: {{ section.settings.card_radius }}px"
 >
   <div class="featured-products__inner">
     {%- if section.settings.title != blank -%}
@@ -185,12 +185,6 @@
 {
   "name": "t:landing.featured_products",
   "settings": [
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "t:labels.background",
-      "default": "#fef7ed"
-    },
     {
       "type": "range",
       "id": "card_radius",

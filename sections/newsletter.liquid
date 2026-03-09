@@ -3,7 +3,7 @@
   Includes a wave divider above for visual separation.
 {% endcomment %}
 
-<div class="newsletter full-width" style="--newsletter-bg: {{ section.settings.background_color }}; --newsletter-accent: {{ section.settings.accent_color }}; --newsletter-fg: {{ section.settings.text_color }};">
+<div class="newsletter full-width" style="--newsletter-bg: var(--color-primary); --newsletter-accent: var(--color-secondary); --newsletter-fg: #ffffff;">
   <div class="newsletter__wave" aria-hidden="true">
     <svg class="newsletter__wave-svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
       <path class="newsletter__wave-path" d="M0 50 C 240 0 480 100 720 50 C 960 0 1200 100 1440 50 L 1440 100 L 0 100 Z"/>
@@ -176,24 +176,6 @@
       "id": "button_label",
       "label": "t:landing.button_label",
       "default": "Subscribe"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "t:labels.background",
-      "default": "#0f766e"
-    },
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "t:landing.accent_color",
-      "default": "#134e4a"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "t:landing.text_color",
-      "default": "#ffffff"
     }
   ],
   "presets": [{ "name": "t:landing.newsletter" }]

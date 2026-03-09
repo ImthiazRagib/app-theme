@@ -3,7 +3,7 @@
   Uses blocks for individual review content. Shows demo reviews when no blocks exist.
 {% endcomment %}
 
-<div class="reviews-slider full-width" style="--reviews-bg: {{ section.settings.background_color }};">
+<div class="reviews-slider full-width" style="--reviews-bg: var(--color-primary-tint);">
   <div class="reviews-slider__inner">
     {%- if section.settings.title != blank -%}
       <h2 class="reviews-slider__title">{{ section.settings.title | escape }}</h2>
@@ -220,12 +220,6 @@
       "id": "title",
       "label": "t:labels.title",
       "default": "What our customers say"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "t:labels.background",
-      "default": "#f0fdfa"
     }
   ],
   "presets": [

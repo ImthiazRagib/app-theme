@@ -5,7 +5,7 @@
 
 <div
   class="video-banner full-width"
-  style="--video-banner-bg: {{ section.settings.background_color }}; --video-banner-fg: {{ section.settings.text_color }}"
+  style="--video-banner-bg: var(--color-primary-tint); --video-banner-fg: var(--color-secondary);"
 >
   <div class="video-banner__inner">
     <div class="video-banner__media">
@@ -244,18 +244,6 @@
       "type": "url",
       "id": "button_link",
       "label": "t:labels.link"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "t:labels.background",
-      "default": "#f0fdfa"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "t:landing.text_color",
-      "default": "#0f766e"
     }
   ],
   "presets": [

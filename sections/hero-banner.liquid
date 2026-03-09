@@ -4,7 +4,7 @@
 
 <div
   class="hero-banner full-width"
-  style="--hero-height: {{ section.settings.height }}px; --hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }}; --hero-bg-color: {{ section.settings.background_color }}; --hero-bg-accent: {{ section.settings.background_accent }}; --hero-img-position: {{ section.settings.image_position | default: 'center center' }}"
+  style="--hero-height: {{ section.settings.height }}px; --hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }}; --hero-bg-color: var(--color-primary); --hero-bg-accent: var(--color-secondary); --hero-img-position: {{ section.settings.image_position | default: 'center center' }}"
 >
   <div class="hero-banner__media">
     {%- if section.settings.image_url != blank -%}
@@ -159,18 +159,6 @@
         { "value": "center right", "label": "t:landing.position.right" }
       ],
       "default": "center center"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "t:landing.fallback_bg",
-      "default": "#0d9488"
-    },
-    {
-      "type": "color",
-      "id": "background_accent",
-      "label": "t:landing.background_accent",
-      "default": "#0f766e"
     },
     {
       "type": "text",

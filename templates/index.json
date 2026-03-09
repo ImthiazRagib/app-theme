@@ -3,10 +3,7 @@
     "header_banner": {
       "type": "header-banner",
       "settings": {
-        "text": "Free shipping on all orders",
-        "background_color": "#0d9488",
-        "background_accent": "#0f766e",
-        "text_color": "#ffffff"
+        "text": "Free shipping on all orders"
       }
     },
     "hero_banner": {
@@ -27,8 +24,7 @@
       "type": "single-product",
       "settings": {
         "subheading": "Our product",
-        "button_label": "View details",
-        "background_color": "#ffffff"
+        "button_label": "View details"
       }
     },
     "video_banner": {
@@ -36,9 +32,7 @@
       "settings": {
         "title": "Why choose us",
         "subtitle": "Discover what makes our product special.",
-        "button_label": "Learn more",
-        "background_color": "#f0fdfa",
-        "text_color": "#0f766e"
+        "button_label": "Learn more"
       },
       "blocks": {
         "bullet_1": {
@@ -70,8 +64,7 @@
     "reviews_slider": {
       "type": "reviews_slider",
       "settings": {
-        "title": "What our customers say",
-        "background_color": "#f0fdfa"
+        "title": "What our customers say"
       },
       "blocks": {
         "review_1": {
@@ -114,10 +107,7 @@
         "title": "Subscribe for updates",
         "subtitle": "Get notified about restocks and exclusive offers.",
         "placeholder": "Enter your email",
-        "button_label": "Subscribe",
-        "background_color": "#0f766e",
-        "accent_color": "#134e4a",
-        "text_color": "#ffffff"
+        "button_label": "Subscribe"
       }
     }
   },
