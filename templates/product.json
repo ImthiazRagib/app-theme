@@ -9,12 +9,55 @@
  */
 {
   "sections": {
+    "banner": {
+      "type": "gradient-banner",
+      "settings": {
+        "title": "Premium quality",
+        "subtitle": "Free shipping on all orders.",
+        "button_label": "Shop collection",
+        "button_link": "/collections/all"
+      }
+    },
     "main": {
       "type": "product",
       "settings": {}
+    },
+    "feature_cards": {
+      "type": "feature-cards",
+      "settings": {
+        "title": "Unleash your charisma and captivate the room"
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "text": "Long-lasting fragrance"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "text": "Versatile for any occasion"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "text": "Elegant travel-friendly design"
+          }
+        },
+        "card_4": {
+          "type": "card",
+          "settings": {
+            "text": "Modern, sophisticated appeal"
+          }
+        }
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "feature_cards",
+    "banner",
   ]
 }

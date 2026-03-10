@@ -1,0 +1,120 @@
+{% comment %}
+  Renders a full-width banner with gradient background, decorative pattern,
+  and customizable text. All colors use theme variables.
+{% endcomment %}
+
+<div
+  class="gradient-banner full-width"
+  style="--banner-bg: var(--color-primary); --banner-accent: var(--color-secondary); --banner-fg: #ffffff;"
+>
+  <div class="gradient-banner__pattern" aria-hidden="true"></div>
+  <div class="gradient-banner__content">
+    {%- if section.settings.title != blank -%}
+      <h2 class="gradient-banner__title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subtitle != blank -%}
+      <p class="gradient-banner__subtitle">{{ section.settings.subtitle | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+      <a href="{{ section.settings.button_link }}" class="gradient-banner__button">
+        {{ section.settings.button_label | escape }}
+      </a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .gradient-banner {
+    position: relative;
+    padding: 4rem var(--page-margin);
+    background: linear-gradient(135deg, var(--banner-bg) 0%, var(--banner-accent) 50%, var(--color-primary-dark) 100%);
+    color: var(--banner-fg);
+    overflow: hidden;
+  }
+  .gradient-banner__pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.15;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.3) 0%, transparent 40%),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 20px,
+        rgba(255, 255, 255, 0.03) 20px,
+        rgba(255, 255, 255, 0.03) 40px
+      );
+    pointer-events: none;
+  }
+  .gradient-banner__content {
+    position: relative;
+    z-index: 1;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    text-align: center;
+  }
+  .gradient-banner__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  }
+  .gradient-banner__subtitle {
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.95;
+    max-width: 42ch;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+  }
+  .gradient-banner__button {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    background: #ffffff;
+    color: var(--banner-bg);
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+  .gradient-banner__button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:landing.gradient_banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:labels.title",
+      "default": "Limited time offer"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "t:landing.subtitle",
+      "default": "Save on your favorite products. Shop now!"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:landing.button_label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:labels.link"
+    }
+  ],
+  "presets": [{ "name": "t:landing.gradient_banner" }]
+}
+{% endschema %}

@@ -101,6 +101,15 @@
         }
       }
     },
+    "gradient_banner": {
+      "type": "gradient-banner",
+      "settings": {
+        "title": "Limited time offer",
+        "subtitle": "Save on your favorite products. Shop now!",
+        "button_label": "Shop now",
+        "button_link": "/collections/all"
+      }
+    },
     "newsletter": {
       "type": "newsletter",
       "settings": {
@@ -116,6 +125,7 @@
     "hero_banner",
     "single_product",
     "reviews_slider",
+    "gradient_banner",
     "video_banner",
     "newsletter"
   ]

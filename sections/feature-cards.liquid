@@ -1,0 +1,137 @@
+{% comment %}
+  Renders a section with a prominent page title and a 2x2 grid of feature cards.
+  Used on product pages to highlight product benefits.
+{% endcomment %}
+
+<div class="feature-cards full-width">
+  <div class="feature-cards__inner">
+    {%- if section.settings.title != blank -%}
+      <h2 class="feature-cards__title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="feature-cards__grid">
+        {%- for block in section.blocks -%}
+          <div class="feature-cards__card" {{ block.shopify_attributes }}>
+            {%- if block.settings.text != blank -%}
+              <p class="feature-cards__card-text">{{ block.settings.text | escape }}</p>
+            {%- else -%}
+              <p class="feature-cards__card-text feature-cards__card-text--placeholder">{{ 'landing.feature_card_placeholder' | t }}</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="feature-cards__grid">
+        {%- assign default_cards = "landing.feature_card_1|landing.feature_card_2|landing.feature_card_3|landing.feature_card_4" | split: "|" -%}
+        {%- for card_text in default_cards -%}
+          <div class="feature-cards__card">
+            <p class="feature-cards__card-text">{{ card_text | t }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .feature-cards {
+    padding: 4rem var(--page-margin) 5rem;
+    background: var(--color-background);
+  }
+  .feature-cards__inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    text-align: center;
+  }
+  .feature-cards__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: var(--color-foreground);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 2.5rem;
+    max-width: 20ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .feature-cards__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 0 auto;
+    max-width: 800px;
+  }
+  @media (max-width: 600px) {
+    .feature-cards__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .feature-cards__card {
+    padding: 1.75rem 1.5rem;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .feature-cards__card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+  .feature-cards__card-text {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-foreground);
+    line-height: 1.4;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:landing.feature_cards",
+  "tag": "section",
+  "class": "feature-cards-section",
+  "blocks": [
+    {
+      "type": "card",
+      "name": "t:landing.feature_card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:labels.text",
+          "default": "Long-lasting fragrance"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:labels.title",
+      "default": "Unleash your charisma and captivate the room"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:landing.feature_cards",
+      "blocks": [
+        { "type": "card", "settings": { "text": "Long-lasting fragrance" } },
+        { "type": "card", "settings": { "text": "Versatile for any occasion" } },
+        { "type": "card", "settings": { "text": "Elegant travel-friendly design" } },
+        { "type": "card", "settings": { "text": "Modern, sophisticated appeal" } }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

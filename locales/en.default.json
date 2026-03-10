@@ -15,7 +15,12 @@
     "newsletter_success": "Thanks for subscribing!",
     "previous": "Previous",
     "next": "Next",
-    "play_video": "Play video"
+    "play_video": "Play video",
+    "feature_card_placeholder": "Add text",
+    "feature_card_1": "Long-lasting fragrance",
+    "feature_card_2": "Versatile for any occasion",
+    "feature_card_3": "Elegant travel-friendly design",
+    "feature_card_4": "Modern, sophisticated appeal"
   },
   "products": {
     "on_sale": "Sale",
