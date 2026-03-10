@@ -202,7 +202,17 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 0.25rem;
+    padding: 0.35rem;
     margin-top: 3rem;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 9999px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .collection-page__pagination a {
+    text-decoration: none;
   }
   .collection-page__pagination .page,
   .collection-page__pagination .next,
@@ -216,20 +226,29 @@
     font-size: 0.8125rem;
     font-weight: 500;
     text-decoration: none;
-    color: var(--color-secondary);
-    opacity: 0.9;
-    transition: opacity 0.2s, color 0.2s;
+    color: var(--color-foreground);
+    background: transparent;
+    border: none;
+    border-radius: 9999px;
+    transition: background 0.2s, color 0.2s;
   }
   .collection-page__pagination .page:hover,
   .collection-page__pagination .next:hover,
-  .collection-page__pagination .previous:hover {
-    opacity: 1;
-    color: var(--color-secondary-dark);
+  .collection-page__pagination .previous:hover,
+  .collection-page__pagination a:hover {
+    background: rgba(0, 0, 0, 0.06);
+    color: var(--color-primary);
+    text-decoration: none;
   }
   .collection-page__pagination .page.current {
-    opacity: 1;
-    color: var(--color-secondary);
+    background: var(--color-primary);
+    color: #fff;
     font-weight: 600;
+    cursor: default;
+  }
+  .collection-page__pagination .page.current:hover {
+    background: var(--color-primary-dark);
+    color: #fff;
   }
   .collection-page__empty {
     text-align: center;
