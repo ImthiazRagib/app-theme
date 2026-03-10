@@ -9,15 +9,26 @@
 >
   <div class="gradient-banner__pattern" aria-hidden="true"></div>
   <div class="gradient-banner__content">
-    {%- if section.settings.title != blank -%}
-      <h2 class="gradient-banner__title">{{ section.settings.title | escape }}</h2>
+    {%- if template.name == 'product' -%}
+      {%- assign banner_title = settings.product_banner_title | default: section.settings.title -%}
+      {%- assign banner_subtitle = settings.product_banner_subtitle | default: section.settings.subtitle -%}
+      {%- assign banner_button_label = settings.product_banner_button_label | default: section.settings.button_label -%}
+      {%- assign banner_button_link = settings.product_banner_button_link | default: section.settings.button_link -%}
+    {%- else -%}
+      {%- assign banner_title = section.settings.title | default: settings.product_banner_title -%}
+      {%- assign banner_subtitle = section.settings.subtitle | default: settings.product_banner_subtitle -%}
+      {%- assign banner_button_label = section.settings.button_label | default: settings.product_banner_button_label -%}
+      {%- assign banner_button_link = section.settings.button_link | default: settings.product_banner_button_link -%}
     {%- endif -%}
-    {%- if section.settings.subtitle != blank -%}
-      <p class="gradient-banner__subtitle">{{ section.settings.subtitle | escape }}</p>
+    {%- if banner_title != blank -%}
+      <h2 class="gradient-banner__title">{{ banner_title | escape }}</h2>
     {%- endif -%}
-    {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
-      <a href="{{ section.settings.button_link }}" class="gradient-banner__button">
-        {{ section.settings.button_label | escape }}
+    {%- if banner_subtitle != blank -%}
+      <p class="gradient-banner__subtitle">{{ banner_subtitle | escape }}</p>
+    {%- endif -%}
+    {%- if banner_button_label != blank and banner_button_link != blank -%}
+      <a href="{{ banner_button_link }}" class="gradient-banner__button">
+        {{ banner_button_label | escape }}
       </a>
     {%- endif -%}
   </div>

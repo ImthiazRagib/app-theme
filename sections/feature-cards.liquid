@@ -3,18 +3,28 @@
   Used on product pages to highlight product benefits.
 {% endcomment %}
 
+{%- assign feature_title = settings.product_feature_title | default: section.settings.title -%}
+{%- assign card_1 = settings.product_feature_card_1 -%}
+{%- assign card_2 = settings.product_feature_card_2 -%}
+{%- assign card_3 = settings.product_feature_card_3 -%}
+{%- assign card_4 = settings.product_feature_card_4 -%}
 <div class="feature-cards full-width">
   <div class="feature-cards__inner">
-    {%- if section.settings.title != blank -%}
-      <h2 class="feature-cards__title">{{ section.settings.title | escape }}</h2>
+    {%- if feature_title != blank -%}
+      <h2 class="feature-cards__title">{{ feature_title | escape }}</h2>
     {%- endif -%}
 
     {%- if section.blocks.size > 0 -%}
       <div class="feature-cards__grid">
         {%- for block in section.blocks -%}
           <div class="feature-cards__card" {{ block.shopify_attributes }}>
-            {%- if block.settings.text != blank -%}
-              <p class="feature-cards__card-text">{{ block.settings.text | escape }}</p>
+            {%- assign card_text = block.settings.text -%}
+            {%- if card_text == blank and forloop.index0 == 0 -%}{%- assign card_text = card_1 -%}{%- endif -%}
+            {%- if card_text == blank and forloop.index0 == 1 -%}{%- assign card_text = card_2 -%}{%- endif -%}
+            {%- if card_text == blank and forloop.index0 == 2 -%}{%- assign card_text = card_3 -%}{%- endif -%}
+            {%- if card_text == blank and forloop.index0 == 3 -%}{%- assign card_text = card_4 -%}{%- endif -%}
+            {%- if card_text != blank -%}
+              <p class="feature-cards__card-text">{{ card_text | escape }}</p>
             {%- else -%}
               <p class="feature-cards__card-text feature-cards__card-text--placeholder">{{ 'landing.feature_card_placeholder' | t }}</p>
             {%- endif -%}
@@ -23,12 +33,10 @@
       </div>
     {%- else -%}
       <div class="feature-cards__grid">
-        {%- assign default_cards = "landing.feature_card_1|landing.feature_card_2|landing.feature_card_3|landing.feature_card_4" | split: "|" -%}
-        {%- for card_text in default_cards -%}
-          <div class="feature-cards__card">
-            <p class="feature-cards__card-text">{{ card_text | t }}</p>
-          </div>
-        {%- endfor -%}
+        <div class="feature-cards__card"><p class="feature-cards__card-text">{{ card_1 | default: 'Long-lasting fragrance' }}</p></div>
+        <div class="feature-cards__card"><p class="feature-cards__card-text">{{ card_2 | default: 'Versatile for any occasion' }}</p></div>
+        <div class="feature-cards__card"><p class="feature-cards__card-text">{{ card_3 | default: 'Elegant travel-friendly design' }}</p></div>
+        <div class="feature-cards__card"><p class="feature-cards__card-text">{{ card_4 | default: 'Modern, sophisticated appeal' }}</p></div>
       </div>
     {%- endif -%}
   </div>

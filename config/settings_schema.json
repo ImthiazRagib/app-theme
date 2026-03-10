@@ -93,6 +93,88 @@
     ]
   },
   {
+    "name": "t:landing.product_details",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:landing.product_banner"
+      },
+      {
+        "type": "text",
+        "id": "product_banner_title",
+        "label": "t:labels.title",
+        "default": "Premium quality"
+      },
+      {
+        "type": "text",
+        "id": "product_banner_subtitle",
+        "label": "t:landing.subtitle",
+        "default": "Free shipping on all orders."
+      },
+      {
+        "type": "text",
+        "id": "product_banner_button_label",
+        "label": "t:landing.button_label",
+        "default": "Shop collection"
+      },
+      {
+        "type": "url",
+        "id": "product_banner_button_link",
+        "label": "t:labels.link"
+      },
+      {
+        "type": "header",
+        "content": "t:landing.wavy_banner"
+      },
+      {
+        "type": "text",
+        "id": "product_wavy_title",
+        "label": "t:labels.title",
+        "default": "Transform your bathing experience into bliss"
+      },
+      {
+        "type": "richtext",
+        "id": "product_wavy_body",
+        "label": "t:labels.content",
+        "default": "<p>Feel the daily embrace of warmth and softness underfoot, turning each step into a moment of pure relaxation. Enjoy a worry-free space with slip resistance, ensuring your home is both stylish and safe for everyone.</p>"
+      },
+      {
+        "type": "header",
+        "content": "t:landing.feature_cards"
+      },
+      {
+        "type": "text",
+        "id": "product_feature_title",
+        "label": "t:labels.title",
+        "default": "Unleash your charisma and captivate the room"
+      },
+      {
+        "type": "text",
+        "id": "product_feature_card_1",
+        "label": "t:landing.feature_card",
+        "default": "Long-lasting fragrance"
+      },
+      {
+        "type": "text",
+        "id": "product_feature_card_2",
+        "label": "t:landing.feature_card",
+        "default": "Versatile for any occasion"
+      },
+      {
+        "type": "text",
+        "id": "product_feature_card_3",
+        "label": "t:landing.feature_card",
+        "default": "Elegant travel-friendly design"
+      },
+      {
+        "type": "text",
+        "id": "product_feature_card_4",
+        "label": "t:landing.feature_card",
+        "default": "Modern, sophisticated appeal"
+      }
+    ]
+  },
+  {
     "name": "t:landing.video_settings",
     "settings": [
       {

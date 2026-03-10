@@ -12,6 +12,17 @@
     "color_primary": "#4F46E5",
     "color_secondary": "#43C99C",
     "video_url": "https://www.youtube.com/watch?v=CZqaS7PcjdI",
-    "video_url_info": "Paste a YouTube or Vimeo URL to play the video. Autoplays muted."
+    "video_url_info": "Paste a YouTube or Vimeo URL to play the video. Autoplays muted.",
+    "product_banner_title": "Premium quality demo",
+    "product_banner_subtitle": "Free shipping on all orders demo.",
+    "product_banner_button_label": "Shop collection demo",
+    "product_banner_button_link": "/collections/all",
+    "product_wavy_title": "Transform your bathing experience into bliss demo",
+    "product_wavy_body": "<p>Feel the daily embrace of warmth and softness underfoot, turning each step into a moment of pure relaxation. Enjoy a worry-free space with slip resistance, ensuring your home is both stylish and safe for everyone. demo</p>",
+    "product_feature_title": "Unleash your charisma and captivate the room demo",
+    "product_feature_card_1": "Long-lasting fragrance demo",
+    "product_feature_card_2": "Versatile for any occasion demo",
+    "product_feature_card_3": "Elegant travel-friendly design demo",
+    "product_feature_card_4": "Modern, sophisticated appeal demo"
   }
 }

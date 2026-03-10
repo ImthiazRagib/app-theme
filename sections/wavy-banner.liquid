@@ -14,11 +14,13 @@
   </div>
 
   <div class="wavy-banner__content">
-    {%- if section.settings.title != blank -%}
-      <h2 class="wavy-banner__title">{{ section.settings.title | escape }}</h2>
+    {%- assign wavy_title = settings.product_wavy_title | default: section.settings.title -%}
+    {%- assign wavy_body = settings.product_wavy_body | default: section.settings.body -%}
+    {%- if wavy_title != blank -%}
+      <h2 class="wavy-banner__title">{{ wavy_title | escape }}</h2>
     {%- endif -%}
-    {%- if section.settings.body != blank -%}
-      <div class="wavy-banner__body">{{ section.settings.body }}</div>
+    {%- if wavy_body != blank -%}
+      <div class="wavy-banner__body">{{ wavy_body }}</div>
     {%- endif -%}
   </div>
 

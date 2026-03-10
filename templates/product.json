@@ -11,12 +11,7 @@
   "sections": {
     "banner": {
       "type": "gradient-banner",
-      "settings": {
-        "title": "Premium quality",
-        "subtitle": "Free shipping on all orders.",
-        "button_label": "Shop collection",
-        "button_link": "/collections/all"
-      }
+      "settings": {}
     },
     "main": {
       "type": "product",
@@ -24,41 +19,20 @@
     },
     "wavy_banner": {
       "type": "wavy-banner",
-      "settings": {
-        "title": "Transform your bathing experience into bliss",
-        "body": "<p>Feel the daily embrace of warmth and softness underfoot, turning each step into a moment of pure relaxation. Enjoy a worry-free space with slip resistance, ensuring your home is both stylish and safe for everyone.</p>"
-      }
+      "settings": {}
     },
     "feature_cards": {
       "type": "feature-cards",
+      "settings": {},
+      "blocks": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
       "settings": {
-        "title": "Unleash your charisma and captivate the room"
-      },
-      "blocks": {
-        "card_1": {
-          "type": "card",
-          "settings": {
-            "text": "Long-lasting fragrance"
-          }
-        },
-        "card_2": {
-          "type": "card",
-          "settings": {
-            "text": "Versatile for any occasion"
-          }
-        },
-        "card_3": {
-          "type": "card",
-          "settings": {
-            "text": "Elegant travel-friendly design"
-          }
-        },
-        "card_4": {
-          "type": "card",
-          "settings": {
-            "text": "Modern, sophisticated appeal"
-          }
-        }
+        "title": "Subscribe for updates",
+        "subtitle": "Get notified about restocks and exclusive offers.",
+        "placeholder": "Enter your email",
+        "button_label": "Subscribe"
       }
     }
   },
@@ -66,6 +40,7 @@
     "banner",
     "main",
     "wavy_banner",
-    "feature_cards"
+    "feature_cards",
+    "newsletter"
   ]
 }
