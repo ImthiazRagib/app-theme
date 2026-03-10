@@ -27,6 +27,16 @@
         "button_label": "View details"
       }
     },
+    "featured_products": {
+      "type": "featured-products",
+      "settings": {
+        "title": "Other products",
+        "collection": "all",
+        "products_to_show": 8,
+        "columns": 4,
+        "show_view_all": true
+      }
+    },
     "video_banner": {
       "type": "video-banner",
       "settings": {
@@ -124,6 +134,7 @@
     "header_banner",
     "hero_banner",
     "single_product",
+    "featured_products",
     "reviews_slider",
     "gradient_banner",
     "video_banner",

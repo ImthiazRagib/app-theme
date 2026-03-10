@@ -5,7 +5,7 @@
 {%- if section.settings.collection != blank -%}
   {%- assign collection = section.settings.collection -%}
 {%- else -%}
-  {%- assign collection = collections.frontpage -%}
+  {%- assign collection = collections.all -%}
 {%- endif -%}
 {%- assign products = collection.products -%}
 {%- assign product_limit = section.settings.products_to_show -%}
