@@ -1,0 +1,125 @@
+{% comment %}
+  Renders a banner with wavy top/bottom edges, animated wave effect,
+  and text content. Background uses theme primary color variable.
+{% endcomment %}
+
+<div
+  class="wavy-banner full-width"
+  style="--wavy-bg: var(--color-primary); --wavy-fg: #ffffff; --wavy-border: #ffffff;"
+>
+  <div class="wavy-banner__wave wavy-banner__wave--top" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" class="wavy-banner__wave-svg">
+      <path d="M0,60 Q360,0 720,60 T1440,60 L1440,0 L0,0 Z"/>
+    </svg>
+  </div>
+
+  <div class="wavy-banner__content">
+    {%- if section.settings.title != blank -%}
+      <h2 class="wavy-banner__title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.body != blank -%}
+      <div class="wavy-banner__body">{{ section.settings.body }}</div>
+    {%- endif -%}
+  </div>
+
+  <div class="wavy-banner__wave wavy-banner__wave--bottom" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" class="wavy-banner__wave-svg">
+      <path d="M0,0 Q360,60 720,0 T1440,0 L1440,60 L0,60 Z"/>
+    </svg>
+  </div>
+</div>
+
+{% stylesheet %}
+  .wavy-banner {
+    position: relative;
+    padding: 5rem var(--page-margin) 5rem;
+    background: var(--wavy-bg);
+    color: var(--wavy-fg);
+    overflow: hidden;
+  }
+  .wavy-banner__wave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 60px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .wavy-banner__wave--top {
+    top: 0;
+  }
+  .wavy-banner__wave--bottom {
+    bottom: 0;
+  }
+  .wavy-banner__wave-svg {
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    left: 0;
+    animation: wavy-banner-flow 6s ease-in-out infinite;
+    fill: var(--wavy-border);
+  }
+  .wavy-banner__wave--bottom .wavy-banner__wave-svg {
+    animation-direction: reverse;
+    animation-duration: 7s;
+    animation-delay: 0.5s;
+  }
+  @keyframes wavy-banner-flow {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-25%); }
+  }
+  .wavy-banner__content {
+    position: relative;
+    z-index: 1;
+    max-width: 50rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .wavy-banner__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    margin: 0 0 1.25rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  }
+  .wavy-banner__body {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    opacity: 0.98;
+    max-width: 42ch;
+    margin: 0 auto;
+  }
+  .wavy-banner__body p {
+    margin: 0 0 1rem;
+  }
+  .wavy-banner__body p:last-child {
+    margin-bottom: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:landing.wavy_banner",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:labels.title",
+      "default": "Transform your bathing experience into bliss"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "t:labels.content",
+      "default": "<p>Feel the daily embrace of warmth and softness underfoot, turning each step into a moment of pure relaxation. Enjoy a worry-free space with slip resistance, ensuring your home is both stylish and safe for everyone.</p>"
+    }
+  ],
+  "presets": [{ "name": "t:landing.wavy_banner" }],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}
