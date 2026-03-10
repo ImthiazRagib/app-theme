@@ -53,6 +53,9 @@
     "video_fallback": "Fallback image (when no video)",
     "bullet_point": "Bullet point"
   },
+  "collections": {
+    "page_settings": "Collection page"
+  },
   "products": {
     "show_related": "Show related products",
     "related_count": "Number of related products"

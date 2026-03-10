@@ -198,6 +198,17 @@
     ]
   },
   {
+    "name": "t:collections.page_settings",
+    "settings": [
+      {
+        "type": "text",
+        "id": "collection_page_subtitle",
+        "label": "t:landing.subtitle",
+        "default": "Explore our full range of products"
+      }
+    ]
+  },
+  {
     "name": "t:landing.video_settings",
     "settings": [
       {

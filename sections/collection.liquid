@@ -10,7 +10,10 @@
   <div class="collection-page__inner">
     <header class="collection-page__header">
       <h1 class="collection-page__title">{{ collection.title | escape }}</h1>
-      {%- if collection.description != blank -%}
+      {%- assign collection_subtitle = settings.collection_page_subtitle | default: collection.description -%}
+      {%- if collection_subtitle != blank -%}
+        <div class="collection-page__subtitle">{{ collection_subtitle }}</div>
+      {%- elsif collection.description != blank -%}
         <div class="collection-page__description">{{ collection.description }}</div>
       {%- endif -%}
     </header>
@@ -53,7 +56,7 @@
 
         {%- if paginate.pages > 1 -%}
           <nav class="collection-page__pagination" aria-label="{{ 'general.pagination' | t }}">
-            {{ paginate | default_pagination }}
+            {{ paginate | default_pagination: previous: '‹', next: '›' }}
           </nav>
         {%- endif -%}
       {%- else -%}
@@ -75,16 +78,21 @@
     margin: 0 auto;
   }
   .collection-page__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     margin-bottom: 2.5rem;
+    width: 100%;
   }
   .collection-page__title {
     font-size: clamp(2rem, 4vw, 2.75rem);
     font-weight: 800;
-    color: var(--color-foreground);
+    color: var(--color-primary);
     letter-spacing: -0.03em;
-    margin: 0 0 0.75rem;
+    margin: 0 0 0.5rem;
   }
+  .collection-page__subtitle,
   .collection-page__description {
     font-size: 1.0625rem;
     line-height: 1.6;
@@ -93,9 +101,11 @@
     max-width: 42rem;
     margin: 0 auto;
   }
+  .collection-page__subtitle p,
   .collection-page__description p {
     margin: 0 0 0.5rem;
   }
+  .collection-page__subtitle p:last-child,
   .collection-page__description p:last-child {
     margin-bottom: 0;
   }
@@ -172,11 +182,13 @@
     font-size: 1rem;
     font-weight: 600;
     margin-bottom: 0.35rem;
+    color: var(--color-primary);
     transition: color 0.2s;
     line-height: 1.3;
   }
   .collection-page__card-price {
     font-weight: 500;
+    color: var(--color-secondary);
   }
   .collection-page__card-price--compare {
     text-decoration: line-through;
@@ -187,8 +199,9 @@
   .collection-page__pagination {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.25rem;
     margin-top: 3rem;
   }
   .collection-page__pagination .page,
@@ -197,34 +210,26 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 2.5rem;
-    height: 2.5rem;
-    padding: 0 0.75rem;
-    font-size: 0.9375rem;
-    font-weight: 600;
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
     text-decoration: none;
-    color: var(--color-foreground);
-    background: #fff;
-    border: 2px solid rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
-    transition: border-color 0.2s, background 0.2s, color 0.2s;
+    color: var(--color-secondary);
+    opacity: 0.9;
+    transition: opacity 0.2s, color 0.2s;
   }
   .collection-page__pagination .page:hover,
   .collection-page__pagination .next:hover,
   .collection-page__pagination .previous:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-    background: var(--color-primary-tint);
+    opacity: 1;
+    color: var(--color-secondary-dark);
   }
   .collection-page__pagination .page.current {
-    border-color: var(--color-primary);
-    background: var(--color-primary);
-    color: #fff;
-    cursor: default;
-  }
-  .collection-page__pagination .page.current:hover {
-    background: var(--color-primary);
-    color: #fff;
+    opacity: 1;
+    color: var(--color-secondary);
+    font-weight: 600;
   }
   .collection-page__empty {
     text-align: center;
