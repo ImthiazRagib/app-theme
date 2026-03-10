@@ -175,6 +175,29 @@
     ]
   },
   {
+    "name": "t:landing.hero_banner",
+    "settings": [
+      {
+        "type": "text",
+        "id": "hero_banner_image_url",
+        "label": "t:landing.hero_image_url",
+        "info": "t:landing.background_image_url_info"
+      },
+      {
+        "type": "text",
+        "id": "hero_banner_title",
+        "label": "t:labels.title",
+        "default": "Our product"
+      },
+      {
+        "type": "text",
+        "id": "hero_banner_subtitle",
+        "label": "t:landing.subtitle",
+        "default": "Quality you can trust"
+      }
+    ]
+  },
+  {
     "name": "t:landing.video_settings",
     "settings": [
       {

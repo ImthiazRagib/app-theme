@@ -7,8 +7,9 @@
   style="--hero-height: {{ section.settings.height }}px; --hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }}; --hero-bg-color: var(--color-primary); --hero-bg-accent: var(--color-secondary); --hero-img-position: {{ section.settings.image_position | default: 'center center' }}"
 >
   <div class="hero-banner__media">
-    {%- if section.settings.image_url != blank -%}
-      <div class="hero-banner__image hero-banner__image--url" style="background-image: url('{{ section.settings.image_url | escape }}');"></div>
+    {%- assign hero_image_url = settings.hero_banner_image_url | default: section.settings.image_url -%}
+    {%- if hero_image_url != blank -%}
+      <div class="hero-banner__image hero-banner__image--url" style="background-image: url('{{ hero_image_url | escape }}');"></div>
     {%- elsif section.settings.image != blank -%}
       {{
         section.settings.image
@@ -23,16 +24,13 @@
   </div>
 
   <div class="hero-banner__content" style="--hero-align: {{ section.settings.text_alignment }}">
-    {%- if section.settings.title != blank -%}
-      <h1 class="hero-banner__title">{{ section.settings.title | escape }}</h1>
+    {%- assign hero_title = settings.hero_banner_title | default: section.settings.title -%}
+    {%- assign hero_subtitle = settings.hero_banner_subtitle | default: section.settings.subtitle -%}
+    {%- if hero_title != blank -%}
+      <h1 class="hero-banner__title">{{ hero_title | escape }}</h1>
     {%- endif -%}
-    {%- if section.settings.subtitle != blank -%}
-      <p class="hero-banner__subtitle">{{ section.settings.subtitle | escape }}</p>
-    {%- endif -%}
-    {%- if section.settings.button_label != blank -%}
-      <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="hero-banner__button">
-        {{ section.settings.button_label | escape }}
-      </a>
+    {%- if hero_subtitle != blank -%}
+      <p class="hero-banner__subtitle">{{ hero_subtitle | escape }}</p>
     {%- endif -%}
   </div>
 </div>

@@ -2,6 +2,7 @@
   "landing": {
     "header_banner": "Header banner",
     "hero_banner": "Hero banner",
+    "hero_image_url": "Background image URL",
     "single_product": "Single product",
     "product": "Product",
     "subheading": "Subheading",

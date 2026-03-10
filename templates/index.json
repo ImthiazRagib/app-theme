@@ -9,14 +9,9 @@
     "hero_banner": {
       "type": "hero-banner",
       "settings": {
-        "image_url": "https://m.media-amazon.com/images/I/61fpkk2jYTL._AC_SX522_.jpg",
-        "title": "Our product",
-        "subtitle": "Quality you can trust",
-        "button_label": "Learn more",
-        "button_link": "/products/our-product",
         "text_alignment": "center",
-        "height": 550,
-        "overlay_opacity": 50,
+        "height": 450,
+        "overlay_opacity": 40,
         "image_position": "center center"
       }
     },
