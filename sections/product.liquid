@@ -7,28 +7,30 @@
   <div class="product-page__main">
     <div class="product-page__gallery" data-product-gallery>
       {%- if product.media.size > 0 -%}
-        <div class="product-page__slider">
-          {%- for media in product.media -%}
-            <div class="product-page__slide {% if forloop.first %}product-page__slide--active{% endif %}" data-slide-index="{{ forloop.index0 }}">
-              {%- case media.media_type -%}
-                {%- when 'image' -%}
-                  {{
-                    media
-                    | image_url: width: 1200
-                    | image_tag: loading: 'lazy', alt: media.alt | default: product.title, class: 'product-page__media-img'
-                  }}
-                {%- when 'video', 'external_video' -%}
-                  {{ media | external_video_tag }}
-                {%- when 'model' -%}
-                  {{ media | model_viewer_tag }}
-                {%- else -%}
-                  {{ media | media_tag }}
-              {%- endcase -%}
-            </div>
-          {%- endfor -%}
+        <div class="product-page__slider-wrap">
+          <div class="product-page__slider-track" data-gallery-track style="width: {{ product.media.size | times: 100 }}%; --slide-count: {{ product.media.size }}">
+            {%- for media in product.media -%}
+              <div class="product-page__slide" data-slide-index="{{ forloop.index0 }}">
+                {%- case media.media_type -%}
+                  {%- when 'image' -%}
+                    {{
+                      media
+                      | image_url: width: 1200
+                      | image_tag: loading: 'lazy', alt: media.alt | default: product.title, class: 'product-page__media-img'
+                    }}
+                  {%- when 'video', 'external_video' -%}
+                    {{ media | external_video_tag }}
+                  {%- when 'model' -%}
+                    {{ media | model_viewer_tag }}
+                  {%- else -%}
+                    {{ media | media_tag }}
+                {%- endcase -%}
+              </div>
+            {%- endfor -%}
+          </div>
         </div>
         {%- if product.media.size > 1 -%}
-          <div class="product-page__thumbnails">
+          <div class="product-page__thumbnails" data-gallery-thumbs>
             {%- for media in product.media -%}
               <button
                 type="button"
@@ -46,12 +48,20 @@
           </div>
         {%- endif -%}
       {%- elsif product.featured_image -%}
-        <div class="product-page__slide product-page__slide--active">
-          {{ product.featured_image | image_url: width: 1200 | image_tag: loading: 'lazy', alt: product.title, class: 'product-page__media-img' }}
+        <div class="product-page__slider-wrap">
+          <div class="product-page__slider-track" style="--slide-count: 1">
+            <div class="product-page__slide">
+              {{ product.featured_image | image_url: width: 1200 | image_tag: loading: 'lazy', alt: product.title, class: 'product-page__media-img' }}
+            </div>
+          </div>
         </div>
       {%- else -%}
-        <div class="product-page__slide product-page__slide--active">
-          {{ 'product-1' | placeholder_svg_tag: 'product-page__placeholder' }}
+        <div class="product-page__slider-wrap">
+          <div class="product-page__slider-track" style="--slide-count: 1">
+            <div class="product-page__slide">
+              {{ 'product-1' | placeholder_svg_tag: 'product-page__placeholder' }}
+            </div>
+          </div>
         </div>
       {%- endif -%}
     </div>
@@ -220,15 +230,31 @@
   (function () {
     const gallery = document.querySelector('[data-product-gallery]');
     if (gallery) {
+      const track = gallery.querySelector('[data-gallery-track]');
       const slides = gallery.querySelectorAll('.product-page__slide');
       const thumbs = gallery.querySelectorAll('[data-thumb-index]');
-      if (slides.length > 1) {
-        function showSlide(index) {
-          slides.forEach((s, i) => s.classList.toggle('product-page__slide--active', i === index));
-          thumbs.forEach((t, i) => t.classList.toggle('product-page__thumb--active', i === index));
+      var currentIndex = 0;
+
+      function showSlide(index) {
+        index = Math.max(0, Math.min(index, slides.length - 1));
+        currentIndex = index;
+        if (track && slides.length > 0) {
+          var pct = (index * 100) / slides.length;
+          track.style.transform = 'translateX(-' + pct + '%)';
         }
-        thumbs.forEach((thumb, i) => thumb.addEventListener('click', () => showSlide(i)));
+        thumbs.forEach(function (t, i) { t.classList.toggle('product-page__thumb--active', i === index); });
+        var thumb = thumbs[index];
+        if (thumb && thumb.parentElement) {
+          thumb.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+        }
       }
+
+      thumbs.forEach(function (thumb) {
+        thumb.addEventListener('click', function () {
+          var index = parseInt(thumb.getAttribute('data-thumb-index'), 10);
+          showSlide(index);
+        });
+      });
     }
 
     const form = document.querySelector('[data-product-form]');
@@ -329,14 +355,18 @@
     overflow: hidden;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   }
-  .product-page__slider {
+  .product-page__slider-wrap {
     position: relative;
+    overflow: hidden;
+  }
+  .product-page__slider-track {
+    display: flex;
+    transition: transform 0.35s ease;
   }
   .product-page__slide {
-    display: none;
-  }
-  .product-page__slide--active {
-    display: block;
+    flex: 0 0 calc(100% / var(--slide-count, 1));
+    width: calc(100% / var(--slide-count, 1));
+    min-width: 0;
   }
   .product-page__slide img,
   .product-page__media-img {
@@ -354,9 +384,21 @@
     gap: 0.5rem;
     margin-top: 1rem;
     padding: 0 1rem 1rem;
-    flex-wrap: wrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  .product-page__thumbnails::-webkit-scrollbar {
+    height: 6px;
+  }
+  .product-page__thumbnails::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
   }
   .product-page__thumb {
+    flex-shrink: 0;
     width: 56px;
     height: 56px;
     padding: 0;
